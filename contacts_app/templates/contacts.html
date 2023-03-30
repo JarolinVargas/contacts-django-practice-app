@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Contacts App</title>
+    <style>
+      body {
+        background-color: #f7f7f9;
+        font-family: sans-serif;
+      }
+
+      /* remove default button styles */
+      button {
+        background-color: transparent;
+        outline: none;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+        border: none;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+
+      main {
+        background-color: #f7f7f9;
+        border: solid 5px #c8c8c8;
+        margin: 100px auto;
+        max-width: 800px;
+      }
+
+      header {
+        width: 100%;
+        padding: 30px;
+        background-color: #fff;
+        box-sizing: border-box;
+      }
+
+      .header-layout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-title {
+        font-weight: 400;
+      }
+
+      .btn-add {
+        width: 50px;
+        height: 50px;
+        border: solid 5px #c8c8c8;
+        border-radius: 100%;
+      }
+
+      .btn-add img {
+        width: 30px;
+        line-height: 1;
+      }
+
+      /* contact component */
+      .contact {
+        background-color: #e9e9da;
+        padding: 20px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .contact > .action {
+        flex-grow: 0;
+      }
+
+      .contact .btn-action img {
+        width: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="header-layout">
+          <div><h2 class="header-title">My Contacts</h2></div>
+          <div>
+            <button class="btn-add plain-button">
+              <img
+                src="{% static 'contacts_app/icons/plus.svg' %}"
+                alt="edit contact"
+              />
+            </button>
+          </div>
+        </div>
+      </header>
+      <section>
+        <form class="contact">
+          <div class="name">John Doe</div>
+          <div class="email">johndoe@gmail.com</div>
+          <div class="phone">555-555-5555</div>
+          <div class="action">
+            <button class="btn-action plain-button">
+              <img
+                src="{% static 'contacts_app/icons/edit.svg' %}"
+                alt="edit contact"
+              />
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
