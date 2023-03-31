@@ -1,0 +1,29 @@
+{% load static %}
+<form class="contact save-mode" method="POST">
+  <div class="name">
+    <span class="value">John Doe</span>
+    <input type="text" placeholder="John Doe" name="first_name" />
+  </div>
+  <div class="email">
+    <span class="value">johndoe@gmail.com</span>
+    <input type="email" placeholder="johndoe@gmail.com" name="last_name" />
+  </div>
+  <div class="phone">
+    <span class="value">555-555-5555</span>
+    <input type="phone" placeholder="555-555-5555" name="phone" />
+  </div>
+  <div class="action">
+    <button class="btn-action plain-button">
+      <img
+        class="edit-icon"
+        src="{% static 'contacts_app/icons/edit.svg' %}"
+        alt="edit contact"
+      />
+      <img
+        class="save-icon"
+        src="{% static 'contacts_app/icons/save.svg' %}"
+        alt="edit contact"
+      />
+    </button>
+  </div>
+</form>

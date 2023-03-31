@@ -60,6 +60,14 @@
         line-height: 1;
       }
 
+      #new-contact {
+        display: none;
+      }
+
+      #new-contact.visible {
+        display: block;
+      }
+
       /* contact component */
       .contact {
         background-color: #e9e9da;
@@ -69,12 +77,34 @@
         justify-content: space-between;
       }
 
+      .contact input {
+        display: none;
+        border: none;
+        outline: none;
+        padding: 10px;
+        width: 100%;
+      }
+
+      .contact.save-mode input {
+        display: block;
+      }
+
       .contact > .action {
         flex-grow: 0;
       }
 
       .contact .btn-action img {
         width: 30px;
+      }
+
+      .contact .save-icon,
+      .contact.save-mode .edit-icon,
+      .contact.save-mode .value {
+        display: none;
+      }
+
+      .contact.save-mode .save-icon {
+        display: block;
       }
     </style>
   </head>
@@ -86,6 +116,7 @@
           <div>
             <button class="btn-add plain-button">
               <img
+                class="edit-icon"
                 src="{% static 'contacts_app/icons/plus.svg' %}"
                 alt="edit contact"
               />
@@ -93,15 +124,39 @@
           </div>
         </div>
       </header>
-      <section>
-        <form class="contact">
-          <div class="name">John Doe</div>
-          <div class="email">johndoe@gmail.com</div>
-          <div class="phone">555-555-5555</div>
+      <section id="new-contact" class="contacts-list">
+        <form
+          class="contact save-mode"
+          action="{% url 'submit_contact' %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <div class="name">
+            <span class="value">John Doe</span>
+            <input type="text" placeholder="John Doe" name="first_name" />
+          </div>
+          <div class="email">
+            <span class="value">johndoe@gmail.com</span>
+            <input
+              type="email"
+              placeholder="johndoe@gmail.com"
+              name="last_name"
+            />
+          </div>
+          <div class="phone">
+            <span class="value">555-555-5555</span>
+            <input type="phone" placeholder="555-555-5555" name="phone" />
+          </div>
           <div class="action">
             <button class="btn-action plain-button">
               <img
+                class="edit-icon"
                 src="{% static 'contacts_app/icons/edit.svg' %}"
+                alt="edit contact"
+              />
+              <img
+                class="save-icon"
+                src="{% static 'contacts_app/icons/save.svg' %}"
                 alt="edit contact"
               />
             </button>
@@ -109,5 +164,33 @@
         </form>
       </section>
     </main>
+    <script>
+      const contactComponents = document.querySelectorAll(".contact");
+      const addButton = document.querySelector(".btn-add");
+
+      contactComponents.forEach((component) => {
+        component
+          .querySelector(".btn-action")
+          .addEventListener("click", (event) => {
+            event.preventDefault();
+            if (!component.classList.contains("save-mode")) {
+              component.classList.add("save-mode");
+            } else {
+              component.classList.remove("save-mode");
+              component.submit();
+            }
+          });
+      });
+
+      addButton.addEventListener("click", () => {
+        if (
+          document.querySelector("#new-contact").classList.contains("visible")
+        ) {
+          document.querySelector("#new-contact").classList.remove("visible");
+        } else {
+          document.querySelector("#new-contact").classList.add("visible");
+        }
+      });
+    </script>
   </body>
 </html>
