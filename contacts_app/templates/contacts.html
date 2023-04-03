@@ -29,12 +29,15 @@
         border: solid 5px #c8c8c8;
         margin: 100px auto;
         max-width: 800px;
+        border-radius: 20px;
       }
 
       header {
         width: 100%;
         padding: 30px;
         background-color: #fff;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
         box-sizing: border-box;
       }
 
@@ -48,16 +51,21 @@
         font-weight: 400;
       }
 
+      header .btn-add {
+        border-color: #c8c8c8;
+      }
+
       .btn-add {
         width: 50px;
         height: 50px;
-        border: solid 5px #c8c8c8;
+        border: solid 5px #fff;
         border-radius: 100%;
       }
 
       .btn-add img {
         width: 30px;
         line-height: 1;
+        margin: 0 auto;
       }
 
       #new-contact {
@@ -74,7 +82,17 @@
         padding: 20px 30px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        margin-bottom: 5px;
+        min-height: 40px;
+        gap: 30px;
+      }
+
+      .contact > div:not(.action) {
+        width: 33%;
+      }
+
+      .contact.new-contact {
+        background-color: #94cac6;
       }
 
       .contact input {
@@ -87,10 +105,6 @@
 
       .contact.save-mode input {
         display: block;
-      }
-
-      .contact > .action {
-        flex-grow: 0;
       }
 
       .contact .btn-action img {
@@ -125,43 +139,10 @@
         </div>
       </header>
       <section id="new-contact" class="contacts-list">
-        <form
-          class="contact save-mode"
-          action="{% url 'submit_contact' %}"
-          method="POST"
-        >
-          {% csrf_token %}
-          <div class="name">
-            <span class="value">John Doe</span>
-            <input type="text" placeholder="John Doe" name="first_name" />
-          </div>
-          <div class="email">
-            <span class="value">johndoe@gmail.com</span>
-            <input
-              type="email"
-              placeholder="johndoe@gmail.com"
-              name="last_name"
-            />
-          </div>
-          <div class="phone">
-            <span class="value">555-555-5555</span>
-            <input type="phone" placeholder="555-555-5555" name="phone" />
-          </div>
-          <div class="action">
-            <button class="btn-action plain-button">
-              <img
-                class="edit-icon"
-                src="{% static 'contacts_app/icons/edit.svg' %}"
-                alt="edit contact"
-              />
-              <img
-                class="save-icon"
-                src="{% static 'contacts_app/icons/save.svg' %}"
-                alt="edit contact"
-              />
-            </button>
-          </div>
-        </form>
+        {% include 'contact.html' with new_contact="true" %}
+      </section>
+      <section id="contacts-list">
+        {% for contact in my_contacts %} {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %} {% endfor %}
       </section>
     </main>
     <script>
