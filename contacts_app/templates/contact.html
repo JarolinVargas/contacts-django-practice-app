@@ -3,22 +3,23 @@
   class="contact{% if new_contact %} new-contact save-mode{% endif %}"
   action="{% if contact_id %}{% url 'edit_contact' contact_id %}{% else %}{% url 'submit_contact' %}{% endif %}"
   method="POST"
+  novalidate
 >
   {% csrf_token %}
   <div class="name">
     <span class="value">{{full_name}}</span>
-    <input type="text" value="{{full_name}}" placeholder="Full Name" name="full_name" />
+    <input type="text" class="input-field" value="{{full_name}}" placeholder="Full Name" name="full_name" />
   </div>
   <div class="email">
     <span class="value">{{email}}</span>
-    <input type="email" value="{{email}}" placeholder="Email Address" name="email" />
+    <input type="email" class="input-field" value="{{email}}" placeholder="Email Address" name="email" />
   </div>
   <div class="phone">
     <span class="value">{{phone}}</span>
-    <input type="phone" value="{{phone}}" placeholder="Phone Number" name="phone" />
+    <input type="phone" class="input-field" value="{{phone}}" placeholder="Phone Number" name="phone" />
   </div>
   <div class="action">
-    <button class="btn-action btn-add plain-button">
+    <button class="btn-action btn-add plain-button" type="button">
       <img
         class="edit-icon"
         src="{% static 'contacts_app/icons/edit.svg' %}"
@@ -31,4 +32,13 @@
       />
     </button>
   </div>
+  {% if contact_id %}
+    <label class="btn-delete">
+      <img
+        src="{% static 'contacts_app/icons/delete.svg' %}"
+        alt="edit contact"
+      />
+      <input type="checkbox" class="delete-checkbox" name="delete" />
+    </label>
+  {% endif %}
 </form>

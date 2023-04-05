@@ -9,6 +9,7 @@ def contacts(request):
     }
     return render(request, 'contacts.html', context)
 
+
 def submit_contact(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -22,6 +23,7 @@ def submit_contact(request):
     else:
         return render(request, 'contacts.html')
 
+
 def edit_contact(request, contact_id):
     contact = get_object_or_404(Contact, id=contact_id)
 
@@ -29,9 +31,26 @@ def edit_contact(request, contact_id):
         contact.full_name = request.POST.get('full_name')
         contact.email = request.POST.get('email')
         contact.phone = request.POST.get('phone')
-        contact.save()
+
+        delete = request.POST.get('delete')
+
+        if delete == 'on':
+            contact.delete()
+        else:
+            contact.save()
 
         return redirect('contacts')
     else:
         return render(request, 'contacts.html')
+
+
+# This is pretty bad, because a contact can be deleted just by visiting the url, and bypasing the form.
+def delete_contact(request, contact_id):
+    contact = get_object_or_404(Contact, id=contact_id)
+    contact.delete()
+
+    return redirect('contacts')
+
+
+
 

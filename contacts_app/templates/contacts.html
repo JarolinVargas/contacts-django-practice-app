@@ -69,11 +69,14 @@
       }
 
       #new-contact {
-        display: none;
+        height: 0px;
+        overflow: hidden;
+        transition-property: height;
+        transition-duration: .30s;
       }
 
       #new-contact.visible {
-        display: block;
+        height: 90px;
       }
 
       /* contact component */
@@ -85,6 +88,7 @@
         margin-bottom: 5px;
         min-height: 40px;
         gap: 30px;
+        position: relative;
       }
 
       .contact > div:not(.action) {
@@ -95,7 +99,7 @@
         background-color: #94cac6;
       }
 
-      .contact input {
+      .contact .input-field {
         display: none;
         border: none;
         outline: none;
@@ -103,7 +107,7 @@
         width: 100%;
       }
 
-      .contact.save-mode input {
+      .contact.save-mode .input-field {
         display: block;
       }
 
@@ -119,6 +123,33 @@
 
       .contact.save-mode .save-icon {
         display: block;
+      }
+
+      .contact .btn-delete {
+        position: absolute;
+        right: 20px;
+        padding: 10px;
+        transition-property: opacity, right;
+        transition-duration: .15s;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+      }
+
+      .contact .btn-delete .delete-checkbox {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      .contact .btn-delete img {
+        width: 30px;
+      }
+
+      .contact.save-mode .btn-delete {
+        display: block;
+        opacity: 1;
+        right: -60px;
+        pointer-events: all;
       }
     </style>
   </head>
@@ -150,27 +181,23 @@
       const addButton = document.querySelector(".btn-add");
 
       contactComponents.forEach((component) => {
-        component
-          .querySelector(".btn-action")
-          .addEventListener("click", (event) => {
-            event.preventDefault();
-            if (!component.classList.contains("save-mode")) {
-              component.classList.add("save-mode");
-            } else {
-              component.classList.remove("save-mode");
-              component.submit();
-            }
+        component.querySelector(".btn-action").addEventListener("click", (event) => {
+          event.preventDefault();
+          if (component.classList.contains("save-mode")) {
+            component.submit();
+          }
+          component.classList.toggle("save-mode");
+        });
+
+        if( component.querySelector(".delete-checkbox") ) {
+          component.querySelector(".delete-checkbox").addEventListener("change", (event) => {
+            component.submit();
           });
+        }
       });
 
       addButton.addEventListener("click", () => {
-        if (
-          document.querySelector("#new-contact").classList.contains("visible")
-        ) {
-          document.querySelector("#new-contact").classList.remove("visible");
-        } else {
-          document.querySelector("#new-contact").classList.add("visible");
-        }
+        document.querySelector("#new-contact").classList.toggle("visible")
       });
     </script>
   </body>
