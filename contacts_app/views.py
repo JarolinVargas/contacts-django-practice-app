@@ -44,13 +44,6 @@ def edit_contact(request, contact_id):
         return render(request, 'contacts.html')
 
 
-# This is pretty bad, because a contact can be deleted just by visiting the url, and bypasing the form.
-def delete_contact(request, contact_id):
-    contact = get_object_or_404(Contact, id=contact_id)
-    contact.delete()
-
-    return redirect('contacts')
-
 
 
 
