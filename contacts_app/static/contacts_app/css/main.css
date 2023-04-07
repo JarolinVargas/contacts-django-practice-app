@@ -1,0 +1,146 @@
+body {
+  background-color: #f7f7f9;
+  font-family: sans-serif;
+}
+
+/* remove default button styles */
+button {
+  background-color: transparent;
+  outline: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+main {
+  background-color: #f7f7f9;
+  border: solid 5px #c8c8c8;
+  margin: 100px auto;
+  max-width: 800px;
+  border-radius: 20px;
+}
+
+header {
+  width: 100%;
+  padding: 30px;
+  background-color: #fff;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  box-sizing: border-box;
+}
+
+.header-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-weight: 400;
+}
+
+header .btn-add {
+  border-color: #c8c8c8;
+}
+
+.btn-add {
+  width: 50px;
+  height: 50px;
+  border: solid 5px #fff;
+  border-radius: 100%;
+}
+
+.btn-add img {
+  width: 30px;
+  line-height: 1;
+  margin: 0 auto;
+}
+
+#new-contact {
+  height: 0px;
+  overflow: hidden;
+  transition-property: height;
+  transition-duration: .30s;
+}
+
+#new-contact.visible {
+  height: 90px;
+}
+
+/* contact component */
+.contact {
+  background-color: #e9e9da;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  min-height: 40px;
+  gap: 30px;
+  position: relative;
+}
+
+.contact > div:not(.action) {
+  width: 33%;
+}
+
+.contact.new-contact {
+  background-color: #94cac6;
+}
+
+.contact .input-field {
+  display: none;
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.contact.save-mode .input-field {
+  display: block;
+}
+
+.contact .btn-action img {
+  width: 30px;
+}
+
+.contact .save-icon,
+.contact.save-mode .edit-icon,
+.contact.save-mode .value {
+  display: none;
+}
+
+.contact.save-mode .save-icon {
+  display: block;
+}
+
+.contact .btn-delete {
+  position: absolute;
+  right: 20px;
+  padding: 10px;
+  transition-property: opacity, right;
+  transition-duration: .15s;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.contact .btn-delete .delete-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.contact .btn-delete img {
+  width: 30px;
+}
+
+.contact.save-mode .btn-delete {
+  display: block;
+  opacity: 1;
+  right: -60px;
+  pointer-events: all;
+}
