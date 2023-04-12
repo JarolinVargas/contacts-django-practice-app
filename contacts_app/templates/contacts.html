@@ -12,21 +12,24 @@
         <div class="header-layout">
           <div><h2 class="header-title">My Contacts</h2></div>
           <div>
-            <button class="btn-add plain-button">
+            <button class="circle-btn">
               <img
+                id="add-contact"
                 class="edit-icon"
                 src="{% static 'contacts_app/icons/plus.svg' %}"
-                alt="edit contact"
+                alt="add contact"
               />
             </button>
           </div>
         </div>
       </header>
-      <section id="new-contact" class="contacts-list">
+      <section id="new-contact">
         {% include 'contact.html' with new_contact="true" %}
       </section>
-      <section id="contacts-list">
-        {% for contact in my_contacts %} {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %} {% endfor %}
+      <section>
+        {% for contact in my_contacts %}
+          {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %}
+        {% endfor %}
       </section>
     </main>
     <script src="{% static 'contacts_app/js/main.js' %}"></script>

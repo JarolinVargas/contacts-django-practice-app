@@ -10,16 +10,16 @@
     <span class="value">{{full_name}}</span>
     <input type="text" class="input-field" value="{{full_name}}" placeholder="Full Name" name="full_name" />
   </div>
+  <div class="phone">
+    <span class="value">{{phone}}</span>
+    <input type="tel" class="input-field" value="{{phone}}" placeholder="Phone Number" name="phone" />
+  </div>
   <div class="email">
     <span class="value">{{email}}</span>
     <input type="email" class="input-field" value="{{email}}" placeholder="Email Address" name="email" />
   </div>
-  <div class="phone">
-    <span class="value">{{phone}}</span>
-    <input type="phone" class="input-field" value="{{phone}}" placeholder="Phone Number" name="phone" />
-  </div>
   <div class="action">
-    <button class="btn-action btn-add plain-button" type="button">
+    <button class="btn-action circle-btn" type="button">
       <img
         class="edit-icon"
         src="{% static 'contacts_app/icons/edit.svg' %}"
@@ -28,7 +28,7 @@
       <img
         class="save-icon"
         src="{% static 'contacts_app/icons/save.svg' %}"
-        alt="edit contact"
+        alt="save contact"
       />
     </button>
   </div>
@@ -36,7 +36,7 @@
     <label class="btn-delete">
       <img
         src="{% static 'contacts_app/icons/delete.svg' %}"
-        alt="edit contact"
+        alt="delete contact"
       />
       <input type="checkbox" class="delete-checkbox" name="delete" />
     </label>
