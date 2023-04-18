@@ -12,11 +12,17 @@
         <div class="header-layout">
           <div><h2 class="header-title">My Contacts</h2></div>
           <div>
-            <button class="circle-btn">
+            <button id="add-contact" class="circle-btn">
               <img
-                id="add-contact"
                 class="edit-icon"
                 src="{% static 'contacts_app/icons/plus.svg' %}"
+                alt="add contact"
+              />
+            </button>
+            <button id="search-contact" class="circle-btn" style="margin-left: 20px">
+              <img
+                class="edit-icon"
+                src="{% static 'contacts_app/icons/search.svg' %}"
                 alt="add contact"
               />
             </button>
@@ -26,6 +32,19 @@
       <section id="new-contact">
         {% include 'contact.html' with new_contact="true" %}
       </section>
+      <form id="search-contact-field" class="{% if query %} visible {% endif %}" action="{% url 'search_contacts' %}" method="POST">
+        {% csrf_token %}
+        <a id="clear-search" href="{% url 'contacts' %}">
+          <button class="circle-btn">
+            <img
+              class="edit-icon"
+              src="{% static 'contacts_app/icons/minus.svg' %}"
+              alt="add contact"
+            />
+          </button>
+        </a>
+        <input type="text" name="query" value="{{ query }}" autofocus placeholder="search by name, email, or phone number"/>
+      </form>
       <section>
         {% for contact in my_contacts %}
           {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %}

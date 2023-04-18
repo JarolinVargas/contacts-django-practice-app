@@ -1,5 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Contact
+from django.db.models import Q
+
+homeTemplate = 'index.html'
 
 # Create your views here.
 def contacts(request):
@@ -7,7 +10,7 @@ def contacts(request):
     context = {
         'my_contacts': myContacts
     }
-    return render(request, 'contacts.html', context)
+    return render(request, homeTemplate, context)
 
 
 def submit_contact(request):
@@ -21,7 +24,7 @@ def submit_contact(request):
 
         return redirect('contacts') 
     else:
-        return render(request, 'contacts.html')
+        return render(request, homeTemplate)
 
 
 def edit_contact(request, contact_id):
@@ -41,7 +44,25 @@ def edit_contact(request, contact_id):
 
         return redirect('contacts')
     else:
-        return render(request, 'contacts.html')
+        return render(request, homeTemplate)
+
+
+def search_contacts(request):
+    if request.method == 'POST':
+        query = request.POST.get('query')
+        if query:
+            filter = Contact.objects.filter(
+                Q(full_name__icontains=query) | Q(email__icontains=query) | Q(phone__icontains=query)
+            )
+            if len(filter) == 0:
+                return redirect('no_results')
+            context = {'my_contacts': filter, 'query': query}
+            return render(request, homeTemplate, context)
+        else:
+            return render(request, homeTemplate)
+    return render(request, homeTemplate)
+
+
 
 
 
