@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Contacts App</title>
+    <link rel="stylesheet" href="{% static 'contacts_app/css/main.css' %}" />
+  </head>
+  <body>
+    <main>
+      {% block content %}
+        <!-- content -->
+      {% endblock %}
+    </main>
+    <script src="{% static 'contacts_app/js/main.js' %}"></script>
+  </body>
+</html>
