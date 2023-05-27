@@ -6,8 +6,9 @@
   <div class="header-layout">
     <div>
       <h2 class="header-title">Hello, <strong>{{username}}</strong>.<br/>Below are your Contacts</h2>
-      <a href="{% url 'sign_out' %}">Sign out</a>&nbsp;&nbsp; &nbsp;
-      <a href="#">Delete account</a>
+      {% if user.is_authenticated %}<a href="{% url 'sign_out' %}">Sign out</a>&nbsp;&nbsp;&nbsp;{% endif %}
+      {% if user.is_authenticated == False %}<a href="{% url 'sign_in' %}">Sign in</a>&nbsp;&nbsp;&nbsp;{% endif %}
+      {% if user.is_authenticated %}<a href="#">Delete account</a>{% endif %}
     </div>
     <div>
       <button id="add-contact" class="circle-btn">

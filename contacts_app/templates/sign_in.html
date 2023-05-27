@@ -4,14 +4,14 @@
 {% block content %}
 <header>
   <div class="header-layout">
-    <div><h2 class="header-title">Sign Up</h2></div>
+    <div><h2 class="header-title">Sign In</h2></div>
   </div>
 </header>
 <section>
   <form method="POST">
     {% csrf_token %}
-    {{ sign_up_form|crispy }}
-    <button type="submit">Sign Up</button>
+    {{ sign_in_form|crispy }}
+    <button type="submit">Sign In</button>
   </form>
 </section>
 {% endblock %}

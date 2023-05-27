@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Contact
 from django.db.models import Q
-from django.contrib.auth import login, logout
-from .forms import UserSignUpForm
+from django.contrib.auth import login, logout, authenticate
+from .forms import UserSignUpForm, UserSignInForm
+from django.contrib import messages
 
 homeTemplate = 'base.html'
 
@@ -74,7 +75,29 @@ def sign_up(request):
             return redirect('contacts')
     else:
         form = UserSignUpForm()
-    return render(request, 'sign_up.html', context={"register_form":form})
+    return render(request, 'sign_up.html', context={"sign_up_form":form})
+
+
+def sign_in(request):
+    if request.method == 'POST':
+        form = UserSignInForm(request.POST)
+        print(form.is_valid(), request.POST)
+        #import pdb;pdb.set_trace()
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('contacts', context={"sign_in_form":form})
+            else:
+                messages.error(request, 'Invalid username or password')
+        else:
+            messages.error(request, 'Invalid form input')
+            return redirect('contacts')
+    else:
+        form = UserSignInForm()
+        return render(request, 'sign_in.html', context={"sign_in_form": form})
 
 
 def sign_out(request):
