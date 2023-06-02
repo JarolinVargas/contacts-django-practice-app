@@ -81,7 +81,8 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         form = UserSignInForm(request.POST)
-        print(form.is_valid(), request.POST)
+        print('TEST')
+        print(form.is_valid(), form.errors.as_data(), form.non_field_errors())
         #import pdb;pdb.set_trace()
         if form.is_valid():
             username = form.cleaned_data.get('username')

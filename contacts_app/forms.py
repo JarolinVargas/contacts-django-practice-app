@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from crispy_forms.helper import FormHelper
 
 class UserSignUpForm(UserCreationForm):
     email = forms.EmailField(required = True)
@@ -22,20 +23,12 @@ class UserSignUpForm(UserCreationForm):
         return user
 
 
+# jarolin, sodfijas82ks
 class UserSignInForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    def __init__(self, *args, **kwargs):
+        super(UserSignInForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
 
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-
-        def __init__(self, *args, **kwargs):
-          super().__init__(*args, **kwargs)
-          self.helper.form_method = 'POST'  # get or post
-          self.helper.render_required_fields = True
-
-        def clean(self):
-          cleaned_data = super().clean()  # Call the superclass's clean() method
-          # Your custom validation logic here
-          return cleaned_data
+        self.fields['username'].widget = forms.TextInput(attrs={'placeholder': 'Username'})
+        self.fields['password'].widget = forms.PasswordInput(attrs={'placeholder': 'Password'})
