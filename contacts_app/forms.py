@@ -24,11 +24,6 @@ class UserSignUpForm(UserCreationForm):
 
 
 # jarolin, sodfijas82ks
-class UserSignInForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super(UserSignInForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = 'post'
-
-        self.fields['username'].widget = forms.TextInput(attrs={'placeholder': 'Username'})
-        self.fields['password'].widget = forms.PasswordInput(attrs={'placeholder': 'Password'})
+class UserSignInForm(forms.Form):
+  username = forms.CharField()
+  password = forms.CharField(widget=forms.PasswordInput)

@@ -90,11 +90,13 @@ def sign_in(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('contacts', context={"sign_in_form":form})
+                return redirect('contacts')
             else:
                 messages.error(request, 'Invalid username or password')
+                return render(request, 'sign_in.html', context={"sign_in_form": form, "sign_in_failed":True})
         else:
             messages.error(request, 'Invalid form input')
+            print('errors:', form.errors)
             return redirect('contacts')
     else:
         form = UserSignInForm()
@@ -103,7 +105,7 @@ def sign_in(request):
 
 def sign_out(request):
     logout(request)
-    return redirect('sign_up')
+    return redirect('sign_in')
     
 
 

@@ -8,9 +8,12 @@
   </div>
 </header>
 <section>
+  {% if sign_in_failed %}
+    <p class="notice">Failed to sign in, try again.</p>
+  {% endif %}
   <form class="auth-form" method="POST">
     {% csrf_token %}
-    {{ sign_in_form|crispy }}
+    {{ sign_in_form }}
     <button type="submit" class="styled-button">Sign In</button>
   </form>
 </section>
