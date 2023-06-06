@@ -8,10 +8,10 @@
   </div>
 </header>
 <section>
-  <form method="POST">
+  <form class="auth-form" method="POST">
     {% csrf_token %}
     {{ sign_up_form|crispy }}
-    <button type="submit">Sign Up</button>
+    <button type="submit" class="styled-button">Sign Up</button>
   </form>
 </section>
 {% endblock %}

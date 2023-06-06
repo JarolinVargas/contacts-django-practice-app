@@ -199,6 +199,10 @@ header .circle-btn {
   box-sizing: border-box;
 }
 
+.auth-form #hint_id_password1 ul {
+  margin-top: 0;
+}
+
 /* button style */
 .styled-button {
   font-size: 20px;

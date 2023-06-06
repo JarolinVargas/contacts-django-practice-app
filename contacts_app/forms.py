@@ -15,6 +15,12 @@ class UserSignUpForm(UserCreationForm):
           self.helper.form_method = "post"  # get or post
           self.helper.render_required_fields = True
 
+        help_texts = {
+          'username': '',
+          'password1': '',
+          'password2': '',
+        }
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
