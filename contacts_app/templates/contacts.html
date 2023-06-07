@@ -15,7 +15,7 @@
       {% endif %}
       {% if user.is_authenticated %}<a href="#">Delete account</a>{% endif %}
     </div>
-    <div>
+    <div style="{% if user.is_authenticated == False %}opacity: 0.3; pointer-events: none{%endif%}">
       <button id="add-contact" class="circle-btn">
         <img
           class="edit-icon"

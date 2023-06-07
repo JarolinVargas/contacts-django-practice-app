@@ -9,8 +9,11 @@ homeTemplate = 'base.html'
 
 # Create your views here.
 def contacts(request):
-    myContacts = Contact.objects.all().order_by('-id')
     user = request.user
+    myContacts = None
+    if user.is_authenticated:
+        myContacts = Contact.objects.filter(user=user).order_by('-id')
+        user = request.user
     context = {
         'username': user.username,
         'my_contacts': myContacts
@@ -24,7 +27,7 @@ def submit_contact(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
 
-        new_contact = Contact(full_name=full_name, email=email, phone=phone)
+        new_contact = Contact(user=request.user, full_name=full_name, email=email, phone=phone)
         new_contact.save()
 
         return redirect('contacts') 
