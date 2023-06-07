@@ -10,8 +10,8 @@
         <a href="{% url 'sign_out' %}">Sign out</a>&nbsp;&nbsp;&nbsp;
       {% endif %}
       {% if user.is_authenticated == False %}
-        <h2 class="header-title">Sign in to view your Contacts</h2>
-        <a href="{% url 'sign_in' %}">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="{% url 'sign_up' %}">Sign up</a>&nbsp;&nbsp;&nbsp;
+        <h2 class="header-title">Sign up or sign in to view your Contacts</h2>
+        <a href="{% url 'sign_up' %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url 'sign_in' %}">Sign in</a>
       {% endif %}
       {% if user.is_authenticated %}<a href="#">Delete account</a>{% endif %}
     </div>
@@ -51,9 +51,13 @@
 </form>
 <section>
   {% if user.is_authenticated %}
-    {% for contact in my_contacts %}
-      {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %}
-    {% endfor %}
+    {% if my_contacts %}
+      {% for contact in my_contacts %}
+        {% include 'contact.html' with contact_id=contact.id full_name=contact.full_name email=contact.email phone=contact.phone %}
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">No results...</p>
+    {% endif %}
   {% else %}
     <p style="text-align: center;">Not signed in...</p>
   {% endif %}

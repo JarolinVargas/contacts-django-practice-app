@@ -13,7 +13,6 @@ def contacts(request):
     myContacts = None
     if user.is_authenticated:
         myContacts = Contact.objects.filter(user=user).order_by('-id')
-        user = request.user
     context = {
         'username': user.username,
         'my_contacts': myContacts
@@ -57,15 +56,25 @@ def edit_contact(request, contact_id):
 
 def search_contacts(request):
     if request.method == 'POST':
+        user = request.user
         query = request.POST.get('query')
         if query:
             filter = Contact.objects.filter(
-                Q(full_name__icontains=query) | Q(email__icontains=query) | Q(phone__icontains=query)
+                Q(user=user) & (Q(full_name__icontains=query) | Q(email__icontains=query) | Q(phone__icontains=query))
             )
-            context = {'my_contacts': filter, 'query': query}
+            context = {
+                'username': user.username,
+                'my_contacts': filter,
+                'query': query
+            }
             return render(request, 'contacts.html', context)
         else:
-            return render(request, 'contacts.html')
+            context = {
+                'username': user.username,
+                'my_contacts': None,
+                'query': None
+            }
+            return render(request, 'contacts.html', context)
     return render(request, homeTemplate)
 
 
