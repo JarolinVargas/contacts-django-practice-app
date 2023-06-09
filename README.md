@@ -6,4 +6,4 @@ Simple contacts app as a Django exercise
 2. `cd` into cloned project and create the python virtual environment: `python -m venv .`
 3. activate the environment: `source bin/activate`
 4. install dependencies: `pip install -r requirements.txt`
-5. run the app: python manage.py runserver
+5. run the app: `python manage.py runserver`
