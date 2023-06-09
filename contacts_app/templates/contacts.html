@@ -13,7 +13,7 @@
         <h2 class="header-title">Sign up or sign in to view your Contacts</h2>
         <a href="{% url 'sign_up' %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url 'sign_in' %}">Sign in</a>
       {% endif %}
-      {% if user.is_authenticated %}<a href="#">Delete account</a>{% endif %}
+      {% if user.is_authenticated %}<a href="{% url 'delete_account' %}">Delete account</a>{% endif %}
     </div>
     <div style="{% if user.is_authenticated == False %}opacity: 0.3; pointer-events: none{%endif%}">
       <button id="add-contact" class="circle-btn">
@@ -49,6 +49,9 @@
   </a>
   <input type="text" name="query" value="{{ query }}" autofocus placeholder="search by name, email, or phone number"/>
 </form>
+{% if account_deleted %}
+  <p class="notice">Your account was successfully deleted.</p>
+{% endif %}
 <section>
   {% if user.is_authenticated %}
     {% if my_contacts %}

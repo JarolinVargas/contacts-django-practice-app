@@ -93,9 +93,6 @@ def sign_up(request):
 def sign_in(request):
     if request.method == 'POST':
         form = UserSignInForm(request.POST)
-        print('TEST')
-        print(form.is_valid(), form.errors.as_data(), form.non_field_errors())
-        #import pdb;pdb.set_trace()
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -108,7 +105,6 @@ def sign_in(request):
                 return render(request, 'sign_in.html', context={"sign_in_form": form, "sign_in_failed":True})
         else:
             messages.error(request, 'Invalid form input')
-            print('errors:', form.errors)
             return redirect('contacts')
     else:
         form = UserSignInForm()
@@ -118,6 +114,28 @@ def sign_in(request):
 def sign_out(request):
     logout(request)
     return redirect('contacts')
+
+
+def delete_account(request):
+    if request.method == 'POST':
+        form = UserSignInForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user == request.user:
+                logout(request)
+                user.delete()
+                return render(request, 'contacts.html', context={"account_deleted": True})
+            else:
+                messages.error(request, 'Invalid username or password')
+                return render(request, 'sign_in.html', context={"sign_in_form": form, "sign_in_failed":True, "delete_account": True})
+
+        return render(request, 'sign_in.html', context={"sign_in_form": form, "delete_account": True})
+    else:
+        form = UserSignInForm()
+        return render(request, 'sign_in.html', context={"sign_in_form": form, "delete_account": True})
+
     
 
 

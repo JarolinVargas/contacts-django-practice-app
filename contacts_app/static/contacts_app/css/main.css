@@ -210,6 +210,14 @@ header .circle-btn {
   padding: 8px;
   border-radius: 5px;
   margin: 0;
+  text-decoration: none;
+  color: initial;
+}
+
+.styled-button.critical-style {
+  background-color: #FF4E50;
+  color: #FFF;
+  border-color:#ab2a2d;
 }
 
 /* notice */
